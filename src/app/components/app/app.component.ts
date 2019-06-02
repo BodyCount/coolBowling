@@ -44,7 +44,7 @@ export class AppComponent implements OnInit {
 
 	isFrameLast = () => this.gameState == GameState.LastFrame
 	isGameEnded = () => this.gameState == GameState.Ended
-	isThirdRollAvailable = () => this.isFrameLast() && Number(this.firstRoll) === GameConfig.strikeScore
+	isExtraRollAvailable = () => this.isFrameLast() && Number(this.firstRoll) === GameConfig.strikeScore
 
 	submit() {
 		this.frameService.addFrame(this.firstRoll, this.secondRoll, this.thirdRoll);

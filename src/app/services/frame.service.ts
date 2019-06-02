@@ -46,6 +46,7 @@ export class FrameService {
 		this.totalScoreChanger.next(this.totalScore);
 	}
 
+	// I've used this article to figure the rules: https://en.wikipedia.org/wiki/Strike_(bowling) [Consecutive strikes]
 	private recalculateFrameScores() {
 		this.frames.forEach((frame, index) => {
 			if (frame.requiredRecounts === 0) {
@@ -56,32 +57,35 @@ export class FrameService {
 			let newRequiredRecounts = frame.requiredRecounts;
 			if (frame.mark === FrameMark.Strike) {
 				if (frame.requiredRecounts === 2) {
-					const nextFrame = this.frames[index + 1];
-					if (nextFrame) {
-						if (nextFrame.mark === FrameMark.Strike) {
-							newTotalScore += nextFrame.rolls[0];
+					const followingFrame = this.frames[index + 1];
+					if (followingFrame) {
+						if (followingFrame.mark === FrameMark.Strike) {
+							newTotalScore += followingFrame.rolls[0];
 							newRequiredRecounts--;
-							const nextAfterNextFrame = this.frames[index + 2]
-							if (nextAfterNextFrame) {
-								newTotalScore += nextAfterNextFrame.rolls[0]
+							const nextAfterFollowingFrame = this.frames[index + 2]
+							if (nextAfterFollowingFrame) {
+								newTotalScore += nextAfterFollowingFrame.rolls[0]
 								newRequiredRecounts--;
+							} else if (followingFrame.rolls[1]) {
+								newTotalScore += followingFrame.rolls[1];
+								newRequiredRecounts--;	
 							}
 						} else {
-							newTotalScore += nextFrame.totalScore;
+							newTotalScore += followingFrame.totalScore;
 							newRequiredRecounts -= 2;
 						}
 					}
 				} else {
-					const nextAfterNextFrame = this.frames[index + 2];
-					if (nextAfterNextFrame) {
-						newTotalScore += nextAfterNextFrame.rolls[0];
+					const nextAfterFollowingFrame = this.frames[index + 2];
+					if (nextAfterFollowingFrame) {
+						newTotalScore += nextAfterFollowingFrame.rolls[0];
 						newRequiredRecounts--;
 					}
 				}
 			} else {
-				const nextFrame = this.frames[index + 1];
-				if (nextFrame) {
-					newTotalScore += nextFrame.rolls[0];
+				const followingFrame = this.frames[index + 1];
+				if (followingFrame) {
+					newTotalScore += followingFrame.rolls[0];
 					newRequiredRecounts--;
 				}
 			}

@@ -4,11 +4,11 @@
 			Roll №1 
 			<input [(ngModel)]="firstRoll" (ngModelChange)="validateRoll()" type="text">
 		</div>
-		<div class="second-roll">
+		<div class="second-roll" *ngIf="!this.isFrameLast() || isExtraRollAvailable()">
 			Roll №2
 			<input [(ngModel)]="secondRoll" (ngModelChange)="validateRoll()" type="text">
 		</div>		
-		<div class="second-roll" *ngIf="isThirdRollAvailable()">
+		<div class="second-roll" *ngIf="isExtraRollAvailable()">
 			Roll №3
 			<input [(ngModel)]="thirdRoll" (ngModelChange)="validateRoll()" type="text">
 		</div>
