@@ -1,25 +1,25 @@
-<table>
-    <tr>
-      <th>
-        Frame
-      </th>
-      <th>
-        Roll №1
-      </th>
-      <th>
-        Roll №2
-      </th>
-      <th>
-      </th>
-      <th>
-        Total
-      </th>
-    </tr>
-    <tr *ngFor="let frame of frames">
-      <td>{{frame.number}} ({{frame.mark}})</td>
-      <td>{{frame.rolls[0]}}</td>
-      <td>{{frame.rolls[1]}}</td>
-      <td>{{frame.rolls[3]}}</td>
-      <td>{{frame.totalScore}}</td>
-    </tr>
-  </table>
+<table *ngIf="frames.length > 0">
+	<tr>
+		<th>
+			Frame
+		</th>
+		<th>
+			Roll №1
+		</th>
+		<th>
+			Roll №2
+		</th>
+		<th>
+			Total
+		</th>
+	</tr>
+		<tr *ngFor="let frame of frames">
+			<td>{{frame.number}} ({{frame.mark}})</td>
+			<td>{{frame.rolls[0]}}
+				<span *ngIf="frame.rolls[2] > 0"> + {{frame.rolls[2]}}</span>
+			</td>
+			<td>{{frame.rolls[1]}} 
+			</td>
+			<td>{{frame.totalScore}}</td>
+		</tr>
+	</table>

@@ -1,21 +1,24 @@
 <div class="game-container">
-	<div class="frames-container">
-		<app-game-summary></app-game-summary>
-	</div>
 	<div class="input-container" *ngIf="!isGameEnded()">
 		<div class="first-roll" >
 			Roll №1 
 			<input [(ngModel)]="firstRoll" (ngModelChange)="validateRoll()" type="text">
 		</div>
-		<div class="second-roll" *ngIf="isFrameLast()">
+		<div class="second-roll">
 			Roll №2
 			<input [(ngModel)]="secondRoll" (ngModelChange)="validateRoll()" type="text">
 		</div>		
-		<div class="second-roll" *ngIf="isFrameLast()">
+		<div class="second-roll" *ngIf="isThirdRollAvailable()">
 			Roll №3
-			<input [(ngModel)]="secondRoll" (ngModelChange)="validateRoll()" type="text">
+			<input [(ngModel)]="thirdRoll" (ngModelChange)="validateRoll()" type="text">
 		</div>
 		<button (click)="submit()" [disabled]="!areRollsValid || isGameEnded()">Submit</button>	
+	</div>
+	<div class="total-score-container">
+		Total Score: {{totalScore}}
+	</div>
+	<div class="frames-container">
+		<app-game-summary></app-game-summary>
 	</div>
 </div>
 
